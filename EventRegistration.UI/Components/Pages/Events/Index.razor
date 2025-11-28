@@ -3,6 +3,7 @@
 @using EventRegistration.UI.Models
 @inject EventRegistrationApiClient ApiClient
 @inject NavigationManager Navigation
+@inject IJSRuntime JSRuntime
 @rendermode InteractiveServer
 
 <PageTitle>Events</PageTitle>
@@ -101,7 +102,8 @@
 
     private async Task DeleteEvent(int eventId)
     {
-        if (confirm($"Are you sure you want to delete this event?"))
+        var confirmed = await JSRuntime.InvokeAsync<bool>("confirm", "Are you sure you want to delete this event?");
+        if (confirmed)
         {
             try
             {
@@ -115,8 +117,6 @@
             }
         }
     }
-
-    private static bool confirm(string message) => true; // Placeholder for JS confirm
 
     private string GetStatusColor(string status) => status switch
     {
