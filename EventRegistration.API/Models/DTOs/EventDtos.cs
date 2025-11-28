@@ -74,11 +74,7 @@ public record CreateRegistrationRequest(
     string? PhoneNumber,
     int TicketTypeId,
     string? DiscountCode
-)
-{
-    // Validation: Email must be valid format
-    public bool IsValidEmail() => Email.Contains("@") && Email.Contains(".");
-};
+);
 
 public record RegistrationResponse(
     int Id,
